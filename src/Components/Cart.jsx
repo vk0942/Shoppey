@@ -1,23 +1,29 @@
 import Navbar from "./Navbar";
 import { useState,useEffect } from "react";
-const cartItems = [1,2,3,4,5,17];
-let TotalBill=0;
+import PropTypes from 'prop-types';
+// const cartItems = [1,2,3,4,5,17];
 
-const Cart = () => {
+
+
+const Cart = ({cart,removeFromCart}) => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+
+    let TotalBill = products.reduce((total, product) => {
+      return total + product.amount;
+    }, 0);
+
     useEffect(()=>{
       const newdata=[];
-     
-      
+    
 
-      cartItems.forEach((itemId) => {
+      cart.forEach((itemId) => {
         fetch(`https://fakestoreapi.com/products/${itemId.toString()}`)
           .then((response) => response.json())
           .then((data) => {
           newdata.push(data);
-          TotalBill+=data.price;
-          if(newdata.length===cartItems.length) 
+          
+          if(newdata.length===cart.length) 
           {
             setIsLoading(false);
             const moddata = newdata.map((product) => ({
@@ -31,10 +37,11 @@ const Cart = () => {
           .catch((error) => {
             console.error(`Error fetching item with ID ${itemId}:`, error);
           });
-         
+          
 
        });
-    },[]);
+    },[cart]);
+
     function handleIncrement(id)
     {
        let newpds = [...products];
@@ -65,6 +72,17 @@ const Cart = () => {
        })
        if(!nah) setProducts(newpds);
     }
+    function handleRemove(Id)
+    {
+      console.log(`Removing item with ID: ${Id}`);
+
+      removeFromCart(Id);
+      setProducts(products.filter((id) => id !== Id));
+      if(cart.length===1){
+       
+        setIsLoading(true);
+      } 
+    }
     return(
       <div>
         <Navbar/>
@@ -72,11 +90,14 @@ const Cart = () => {
         <div className="checkout">
           <div>
             <div>Total Bill: - {parseInt(TotalBill.toFixed(0))}</div>
-            <button>Proceed to checkout</button>
+            <button onClick={()=> window.location.reload()}>Proceed to checkout</button>
           </div>
         </div>
         <h2>Product List</h2>
-        {isLoading && <div className="loading-animation"></div>}
+        {isLoading && (products.length>0)&& <div className="loading-animation"></div>}
+        {isLoading && (products.length===0)&& <div >
+            The Cart Looks empty
+        </div>}
         {!isLoading && <div>
         {products.map((product) => (
           <div key={product.id}>
@@ -92,11 +113,16 @@ const Cart = () => {
               <button onClick={() => handleDecrement(product.id)}>-</button>
             </div>
             <div>Amount: - {parseInt(product.amount.toFixed(0))}</div>
+            <div> <button onClick={()=> handleRemove(product.id)}>Remove Item</button></div>
            </div>
         ))}
       </div>}
       </div>
     )
 }
+Cart.propTypes = {
+  cart: PropTypes.array.isRequired, // Assuming cart is an array
+  removeFromCart: PropTypes.func.isRequired,
+};
 
 export default Cart;

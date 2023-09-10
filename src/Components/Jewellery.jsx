@@ -1,6 +1,10 @@
 import  { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
-const Jewellery= () => {
+
+
+
+const Jewellery= ({addToCart}) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   useEffect(() => {
@@ -21,6 +25,8 @@ const Jewellery= () => {
     <div>
       <h2>Product List</h2>
       {isLoading && <div className="loading-aimation"></div>}
+
+
       {!isLoading && <div>
         {products.map((product) => (
           <div key={product.id}>
@@ -31,7 +37,7 @@ const Jewellery= () => {
             </div>
             <div>Price:- {product.price}$</div>
             <div>
-                <button>Add to Cart</button>
+                <button onClick={()=> addToCart(product.id)}>Add to Cart</button>
             </div>
           </div>
         ))}
@@ -41,7 +47,11 @@ const Jewellery= () => {
 
 };
 
-
+Jewellery.propTypes = {
+  // Assuming cart is an array
+    addToCart: PropTypes.func.isRequired,
+  };
+  
 
 export default Jewellery;
 
