@@ -2,15 +2,13 @@ import  { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
 
-
-
-const MensWare= ({addToCart}) => {
+const Electronics= ({addToCart}) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const str = "men's clothing";
+        const str = "electronics";
         const response = await fetch(`https://fakestoreapi.com/products/category/${str}`);
         const data = await response.json();
         setProducts(data); // Displaying only 5 products
@@ -48,10 +46,11 @@ const MensWare= ({addToCart}) => {
 
 };
 
-MensWare.propTypes = {
+
+Electronics.propTypes = {
   // Assuming cart is an array
     addToCart: PropTypes.func.isRequired,
   };
   
 
-export default MensWare;
+export default Electronics;

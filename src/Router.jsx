@@ -5,6 +5,7 @@ import Cart from "./Components/Cart";
 import MensWare from "./Components/MensWare";
 import WomensWare from "./Components/WomensWare";
 import Jewellery from "./Components/Jewellery";
+import Electronics from "./Components/Electronics";
 import DefaultShop from "./Components/DefaultShop";
 import { useState } from "react";
 
@@ -33,9 +34,10 @@ const Router = ()=>{
           element: <Shop />,
           children: [
             { index: "defaultShop" , element: <DefaultShop/>},
-            { path: "mensWare", element: <MensWare/> },
-            { path: "womensWare", element: <WomensWare/> },
+            { path: "mensWare", element: <MensWare  addToCart={addToCart}/> },
+            { path: "womensWare", element: <WomensWare  addToCart={addToCart}/> },
             { path: "jewellery", element: <Jewellery  addToCart={addToCart}/> },
+            { path: "electronics", element: <Electronics  addToCart={addToCart}/> },
           ],
         },
         {

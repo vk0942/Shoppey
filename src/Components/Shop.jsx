@@ -12,6 +12,8 @@ const Shop = () => {
           <div><Link to="mensWare">Mens Clothing</Link></div>
           <div><Link to="womensWare">Womens Clothing</Link></div>
           <div><Link to="jewellery">Jewellery</Link></div>
+          <div><Link to="electronics">Electronics</Link></div>
+
         </div>
         <Outlet/>
       </div>
