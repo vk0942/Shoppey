@@ -2,12 +2,17 @@ import './App.css'
 import { Link } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 function App() {
+
   return (
-    <div>
+    <div className="home-page" id="home">
       <Navbar/>
-      <h1>Hello from Home page!</h1>
-      <p>So, how are you?</p>
+      <div className='home-page-content'>
+        <div className='home-mini'>
+      <h1>Your one-stop destination for all your shopping needs</h1>
+      <p>Discover an unparalleled shopping experience with our extensive selection of products, unbeatable prices, and exceptional customer service. Shop now and transform your shopping journey with us.</p>
       <button><Link to="shop">Shop now</Link></button>
+      </div>
+      </div>
     </div>
   );
 }

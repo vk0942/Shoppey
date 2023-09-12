@@ -1,21 +1,27 @@
 import { Link ,Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import mens_ware from "../assets/mens_ware.webp";
+import womens_ware from "../assets/womens_ware.jpeg";
+import electronics from "../assets/electronics.jpg";
+import jewellery from "../assets/jewellery.webp";
 
 
 const Shop = () => {
     
     return(
-      <div>
+      <div className="home-page">
         <Navbar/>
-        <h1>Welcome to the shop page</h1>
         <div>
-          <div><Link to="mensWare">Mens Clothing</Link></div>
-          <div><Link to="womensWare">Womens Clothing</Link></div>
-          <div><Link to="jewellery">Jewellery</Link></div>
-          <div><Link to="electronics">Electronics</Link></div>
+          <h1>Go Ahead and Pick your choice</h1>
+          <div className="choice-container">
+            <div><Link to="mensWare"><img alt="mens clothing" src={mens_ware}/>Mens Ware</Link></div>
+            <div><Link to="womensWare"><img alt="women's clothing" src={womens_ware}/>Womens Ware</Link></div>
+            <div><Link to="jewellery"><img alt="Jewellery" src={jewellery}/>Jewellery</Link></div>
+            <div><Link to="electronics"><img alt="Electronics" src={electronics}/>Electronics</Link></div>
 
+          </div>
         </div>
-        <Outlet/>
+        <Outlet className="outlet"/>
       </div>
     )
 }

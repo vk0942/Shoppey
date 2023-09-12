@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import { useState,useEffect } from "react";
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 // const cartItems = [1,2,3,4,5,17];
 
 
@@ -86,34 +87,35 @@ const Cart = ({cart,removeFromCart}) => {
     return(
       <div>
         <Navbar/>
-        <h1>Welcome to the Cart page</h1>
-        <div className="checkout">
+        <div className="cart-header">
+        <div><h1>Your CART</h1></div>
+        {products.length>0&&<div className="checkout">
           <div>
-            <div>Total Bill: - {parseInt(TotalBill.toFixed(0))}</div>
-            <button onClick={()=> window.location.reload()}>Proceed to checkout</button>
+            <div>Total Bill: - {parseInt(TotalBill.toFixed(0))} $</div>
+            <button onClick={()=> window.location.reload()}><Link to="https://www.youtube.com/watch?v=xvFZjo5PgG0">Proceed to pay</Link></button>
           </div>
+        </div>}
         </div>
         <h2>Product List</h2>
         {isLoading && (products.length>0)&& <div className="loading-animation"></div>}
-        {isLoading && (products.length===0)&& <div >
+        {isLoading && (products.length===0)&& <div  className="Empty-cart">
             The Cart Looks empty
         </div>}
-        {!isLoading && <div>
+        {!isLoading && <div className="mens-list">
         {products.map((product) => (
-          <div key={product.id}>
+          <div key={product.id} className="mens-list-item">
             <div><img src={product.image}/></div>
-            <div>
-               <h3>Title</h3>
+            <div className="title">
                {product.title}
             </div>
-            <div>Price:- {product.price}$</div>
-            <div>
+            <div className="price">Price:- {product.price}$</div>
+            <div className="quantity">
               <button onClick= {() => handleIncrement(product.id)}>+</button>
               <div>{product.quantity}</div>
               <button onClick={() => handleDecrement(product.id)}>-</button>
             </div>
-            <div>Amount: - {parseInt(product.amount.toFixed(0))}</div>
-            <div> <button onClick={()=> handleRemove(product.id)}>Remove Item</button></div>
+            <div className="amount">Amount: - {parseInt(product.amount.toFixed(0))} $</div>
+            <div className="remove-btn"> <button onClick={()=> handleRemove(product.id)}>Remove Item</button></div>
            </div>
         ))}
       </div>}
